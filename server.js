@@ -1,5 +1,9 @@
 const express = require('express');
 
+const db = require('./db');
+db('mongodb+srv://Platzi:Soyunpan123@cluster0.3dagj.mongodb.net/Ture?retryWrites=true&w=majority');
+
+
 var app = express();
 
 app.use('/', function(req, res) {

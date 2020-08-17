@@ -1,15 +1,19 @@
-const Model = require('./model');
+const UserModel = require('./model');
 
 function addUser(user) {
-    const myUser = new Model(user);
-    return myUser.save();
+  const myUser = new UserModel(user);
+  return myUser.save();
 }
 
 function listUsers() {
-    return Model.find();
+  return UserModel.find();
 }
 
-module.exports = {
-    add: addUser,
-    list: listUsers,
+function getUserById(DNI) {
+  return UserModel.findOne({ DNI });
 }
+module.exports = {
+  add: addUser,
+  list: listUsers,
+  getOne: getUserById,
+};

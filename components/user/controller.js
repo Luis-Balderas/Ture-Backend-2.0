@@ -1,21 +1,26 @@
 const store = require('./store');
 
-function addUser(name) {
-    if (!name) {
-        return Promise.reject('Incalid name');
-    }
-
-    const user = {
-        name,
-    };
-    return store.add(user);
+function addUser(user) {
+  if (!user) {
+    return Promise.reject('Invalid name');
+  }
+  const newUser = {
+    ...user,
+    birth: new Date(user.birth),
+  };
+  return store.add(newUser);
 }
 
 function listUsers() {
-    return store.list()
+  return store.list();
+}
+
+function getUserById(DNI) {
+  return store.getOne(DNI);
 }
 
 module.exports = {
-    addUser,
-    listUsers,
-}
+  addUser,
+  listUsers,
+  getUserById,
+};

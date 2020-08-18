@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', function (req, res) {
   controller
-    .listUsers()
+    .getAllEvent()
     .then((users) => {
       response.success(req, res, users, 200);
     })
@@ -14,9 +14,9 @@ router.get('/', function (req, res) {
     });
 });
 
-router.get('/:DNI', function (req, res) {
+router.get('/search', function (req, res) {
   controller
-    .getUserById(req.params.DNI)
+    .getEventsByRangeDate(req.query)
     .then((users) => {
       if (users) {
         response.success(req, res, users, 200);
@@ -31,7 +31,7 @@ router.get('/:DNI', function (req, res) {
 
 router.post('/', function (req, res) {
   controller
-    .addUser(req.body)
+    .createEvent(req.body)
     .then((data) => {
       response.success(req, res, data, 201);
     })

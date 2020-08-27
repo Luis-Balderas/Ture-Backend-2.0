@@ -6,6 +6,10 @@ function getAllEvent() {
   return eventModel.find();
 }
 
+function getEventById(id) {
+  return eventModel.findOne({ id });
+}
+
 function createEvent(event) {
   const newEvent = new eventModel(event);
   return newEvent.save();
@@ -38,6 +42,7 @@ function getEventsByRangeDate(event) {
 
 module.exports = {
   getAll: getAllEvent,
+  getId: getEventById,
   create: createEvent,
   getEventDate: getEventsByRangeDate,
 };

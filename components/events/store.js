@@ -7,7 +7,8 @@ function getAllEvent() {
 }
 
 function getEventById(id) {
-  return eventModel.findOne({ id });
+  console.log('getEventById -> id', id);
+  return eventModel.findOne({ _id: id });
 }
 
 function createEvent(event) {

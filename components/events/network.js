@@ -15,9 +15,9 @@ router.get('/', function (req, res) {
 });
 
 router.get('/:id', function (req, res) {
-  const { _id } = req.params;
+  const { id } = req.params;
   controller
-    .getEventById(_id)
+    .getEventById(id)
     .then((users) => {
       response.success(req, res, users, 200);
     })

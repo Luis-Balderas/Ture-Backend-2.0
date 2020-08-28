@@ -14,6 +14,18 @@ router.get('/', function (req, res) {
     });
 });
 
+router.get('/:id', function (req, res) {
+  const { id } = req.params;
+  controller
+    .getEventById(id)
+    .then((users) => {
+      response.success(req, res, users, 200);
+    })
+    .catch((err) => {
+      response.error(req, res, 'Invalid data', 400, err);
+    });
+});
+
 router.get('/search', function (req, res) {
   controller
     .getEventsByRangeDate(req.query)

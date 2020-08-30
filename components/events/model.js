@@ -11,8 +11,10 @@ const mySchema = new Schema({
   endDate: { type: Date, required: true },
   images: { type: [String], required: true },
   ocupation: { type: Number, required: true },
+  category: {type: String, required: true},
   housingId: { type: Schema.Types.ObjectId, ref: 'Housing' },
 });
+    
 
 const model = mongoose.model('Event', mySchema);
 module.exports = model;

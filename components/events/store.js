@@ -12,32 +12,45 @@ function getEventById(id) {
 }
 
 function createEvent(event) {
-  const newEvent = new eventModel(event);
+  const eventModificated = {
+    ...event,
+    name: event.name.toLowerCase(),
+  }
+  const newEvent = new eventModel(eventModificated);
   return newEvent.save();
 }
 
 function getEventsByRangeDate(event) {
   let query = {};
-  switch (event) {
-    case event.startDate:
-      query = {
-        ...query,
-        startDate: { $lte: new Date(event.startDate) },
-      };
-    case event.startEnd:
-      query = {
-        ...query,
-        endDate: { $gte: new Date(event.endDate) },
-      };
-    case event.location:
-      query = {
-        ...query,
-        location: { $eq: event.location },
-      };
-    default:
-      break;
+  if(event.startDate) {
+    query = {
+      ...query,
+      startDate: { $lte: new Date(event.startDate) },
+    };
   }
-
+  if(event.endDate) {
+    query = {
+      ...query,
+      endDate: { $gte: new Date(event.endDate) },
+    };
+  }
+  if(event.location) {
+    query = {
+      ...query,
+      $text: {
+        $search: event.location,
+        $caseSensitive: false,
+      },
+    };
+  }
+  if(event.name) {
+    let name = event.name.toLowerCase();
+    query = {
+      ...query,
+      name: { $in: [ new RegExp(name)] }
+    };
+  }
+  console.log('query', query)
   return eventModel.find(query);
 }
 
